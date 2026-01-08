@@ -24,7 +24,8 @@ export default function StreamingConsole() {
   useEffect(() => {
     if (meetingRole !== 'transcriber' || !remoteMeetingId) return;
 
-    const lastTurn = turns.at(-1);
+    // FIX: Using traditional array indexing instead of .at(-1) to fix ES2022 compatibility error
+    const lastTurn = turns.length > 0 ? turns[turns.length - 1] : undefined;
     if (lastTurn && lastTurn.isFinal && lastTurn.role !== 'system') {
       supabase.from('transcriptions').insert({
         meeting_id: remoteMeetingId,
@@ -98,7 +99,8 @@ export default function StreamingConsole() {
       if (!text) return;
 
       const currentTurns = useLogStore.getState().turns;
-      const last = currentTurns.at(-1);
+      // FIX: Using traditional array indexing instead of .at(-1) to fix ES2022 compatibility error
+      const last = currentTurns.length > 0 ? currentTurns[currentTurns.length - 1] : undefined;
 
       if (last?.role === 'agent' && !last.isFinal) {
         updateLastTurn({ text: last.text + text });
@@ -108,7 +110,9 @@ export default function StreamingConsole() {
     };
 
     const handleTurnComplete = () => {
-      const last = useLogStore.getState().turns.at(-1);
+      const currentTurns = useLogStore.getState().turns;
+      // FIX: Using traditional array indexing instead of .at(-1) to fix ES2022 compatibility error
+      const last = currentTurns.length > 0 ? currentTurns[currentTurns.length - 1] : undefined;
       if (last && !last.isFinal) {
         updateLastTurn({ isFinal: true });
       }
