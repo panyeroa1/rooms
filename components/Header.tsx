@@ -1,0 +1,26 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+*/
+import { useUI } from '../lib/state';
+
+export default function Header() {
+  const { toggleSidebar } = useUI();
+
+  return (
+    <header>
+      <div className="header-left">
+        <h1>SUCCESS <span>CLASS</span> | ROOM</h1>
+      </div>
+      <div className="header-right">
+        <button
+          className="action-button"
+          onClick={toggleSidebar}
+          aria-label="Settings"
+        >
+          <span className="icon">tune</span>
+        </button>
+      </div>
+    </header>
+  );
+}

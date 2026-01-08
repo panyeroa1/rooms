@@ -1,0 +1,8 @@
+{
+  "name": "Copy of Success Class | Orbit",
+  "description": "High-performance classroom environment with professional media configuration.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
